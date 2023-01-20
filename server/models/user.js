@@ -33,9 +33,7 @@ const UserSchema = new mongoose.Schema({
         default: []
     },
     location: String,
-    tagline: String,
-    viewProfile: Number,
-    impressions: Number
+    tagline: String
 }, { timestamps: true })
 
 const User = mongoose.model("User", UserSchema)
