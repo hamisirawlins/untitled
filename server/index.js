@@ -11,6 +11,9 @@ import { fileURLToPath } from 'url';
 import { register } from "./controllers/auth.js"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
+import challengeRoutes from "./routes/challenges.js"
+import {createChallenge} from "./controllers/challenges.js"
+import { verifyToken } from './middleware/auth.js';
 
 
 //Middleware and Packages Setup
@@ -48,9 +51,11 @@ const upload = multer({ storage })
 
 //Routes with File needs
 app.post("/auth/register", upload.single("picture"), register)
+app.post('/challenges', verifyToken, upload.single("picture"), createChallenge)
 
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
+app.use("/challenges", challengeRoutes)
 
 //Mongoose Setup
 const PORT = process.env.PORT || 6001
